@@ -1,1 +1,182 @@
+    TUTOR !
+
 truncate : buat judul klo kepanjangan
+
+npx tailwindcss -i ./src/input.css -o ./css/output.css --watch
+
+>cara membuat navbar<
+-html-
+
+ <!-- header start -->
+
+    <header class="bg-transparent absolute top-0 left-0 w-full flex items-center z-10">
+        <div class="container">
+            <div class="flex items-center justify-between relative">
+                <div class="px-4">
+                    <!-- <a href="#home" class="font-bold text-lg text-primary py-6 block">Herlandi</a> -->
+                    <a href="#" class="w-20 block bg-primary bg-opacity-25"><img src="profile/edit.png" alt="logo"></a>
+                </div>
+                <div class="flex item-center px-4 pb-10 lg:pb-0 ">
+
+                    <button id="hamburger" name="hamburger" type="button" class="block absolute right-4 lg:hidden ">
+                        <span class="hamburger-line transition duration-300 ease-in-out origin-top-left"></span>
+                        <span class="hamburger-line transition duration-300 ease-in-out"></span>
+                        <span class="hamburger-line transition duration-300 ease-in-out origin-bottom-left"></span>
+                    </button>
+
+                    <nav id="nav-menu" class="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
+                        <ul class="block lg:flex">
+                            <li class="group">
+                                <a href="#home" class="text-base text-dark py-2 mx-8 flex group-hover:text-primary">Beranda</a>
+                            </li>
+
+                            <li class="group">
+                                <a href="#home" class="text-base text-dark py-2 mx-8 flex group-hover:text-primary">About</a>
+                            </li>
+
+                            <li class="group">
+                                <a href="#home" class="text-base text-dark py-2 mx-8 flex group-hover:text-primary">My Skill</a>
+                            </li>
+
+                            <li class="group">
+                                <a href="#home" class="text-base text-dark py-2 mx-8 flex group-hover:text-primary">Photoshop</a>
+                            </li>
+
+                            <li class="group">
+                                <a href="#home" class="text-base text-dark py-2 mx-8 flex group-hover:text-primary">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+    
+    <!-- header end -->
+
+-javascript-
+
+// navbar fixed
+window.onscroll = function () {
+    const header = document.querySelector('header');
+    const fixedNav = header.offsetTop;
+
+    if(window.pageYOffset > fixedNav) {
+        header.classList.add('navbar-fixed');
+
+    } else {
+        header.classList.remove('navbar-fixed');
+    }
+};
+
+
+// hamburger
+
+const hamburger = document.querySelector('#hamburger');
+const navMenu = document.querySelector('#nav-menu');
+
+hamburger.addEventListener('click', function () {
+    hamburger.classList.toggle('hamburger-active');
+    navMenu.classList.toggle('hidden');
+});
+
+
+// cara close navbar hamburger dengan mudah
+window.addEventListener('click', function(e) {
+    if(e.target != hamburger && e.target != navMenu){
+        hamburger.classList.remove('hamburger-active');
+        navMenu.classList.add('hidden');
+    }
+});
+
+
+----------------------------------------------------------------------
+>cara membuat tomblo top
+-HTML
+ <!-- back top start -->
+   <a href="#home" class="p-4 fixed hidden justify-center items-center block h-14 w-14 bottom-4 right-4 z-[9999] rounded-full bg-primary" id="to-top">
+    <span class="block h-5 w-5 border-t-2 border-l-2 rotate-45 hover:animate-pulse hover:scale-125 transition duration-500 mt-2"></span>
+   </a>
+   <!-- back top end -->
+
+-javascript
+window.onscroll = function () {
+
+    const toTop = document.querySelector('#to-top');
+
+    if(window.pageYOffset > fixedNav) {
+    
+        toTop.classList.remove('hidden');
+        toTop.classList.add('flex');
+
+    } else {
+       
+        toTop.classList.remove('flex');
+        toTop.classList.add('hidden');
+    }
+};
+
+
+
+----------------------------------------------------------------------
+// cara close navbar hamburger dengan mudah
+window.addEventListener('click', function(e) {
+    if(e.target != hamburger && e.target != navMenu){
+        hamburger.classList.remove('hamburger-active');
+        navMenu.classList.add('hidden');
+    }
+});
+----------------------------------------------------------------------
+
+
+> cara membuat darkmode<
+-html-
+  <li class="flex items-center pl-8">
+                               <div class="flex">
+                                    <span class="text-sm mr-2 text-slate-500">light</span>
+                                    <input type="checkbox" class="hidden" id="dark-toggle"/>
+                                    <label for="dark-toggle">
+                                        <div class="flex h-5 w-9 cursor-pointer items-center rounded-full p-1 bg-slate-500">
+                                            <div class="toggle-circle h-4 w-4 rounded-full bg-white"></div>
+                                        </div>
+                                    </label>
+                                    <span class="text-sm ml-2 text-slate-500">Dark</span>
+                               </div>
+                            </li>
+
+-CSS-
+    #dark-toggle:checked ~ label div.toggle-circle {
+    @apply translate-x-3;
+    }
+
+-javascript-
+    //dark mode toggle
+    const darkToggle = document.querySelector('#dark-toggle');
+    const html = document.querySelector('html');
+
+    darkToggle.addEventListener('click', function(){
+          if (darkToggle.checked) {
+        html.classList.add('dark');
+        localStorage.theme = 'dark';
+    } else {
+        html.classList.remove('dark');
+        localStorage.theme = 'light';
+    }
+    });
+
+-tailwind.config.js
+    darkMode: 'class', <<<<
+
+-kemudian isi section dengan format 'dark:bg-slate-500'
+
+-munculin hamberger menu 
+    .hamburger-line {
+    @apply my-2 block h-[2px] w-[30px] bg-dark dark:bg-white;
+    }
+
+-ganti bg navbar resolusi kecil
+    <nav id="nav-menu" class="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none dark:bg-dark lg:dark:bg-transparent">
+
